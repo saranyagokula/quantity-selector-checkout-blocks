@@ -1,20 +1,18 @@
-/* delete-icon.css */
-#content table.shop_table a.remove {
+/* Styles for delete icon */
+.quantity-selector .delete-icon {
     color: red;
-    display: block;
+    display: inline-block;
     font-size: 20px;
     font-weight: 700;
     height: 20px;
     line-height: 20px;
-    padding: 0;
     text-align: center;
     text-decoration: none;
     vertical-align: middle;
     width: 20px;
-    float: left;
-    border: 0;
+    cursor: pointer; /* Changes cursor to hand symbol on hover */
 }
 
-#content table.shop_table a.remove:hover {
-    cursor: pointer; /* Changes the cursor to a hand symbol when hovering */
+.quantity-selector .delete-icon:hover {
+    color: darkred; /* Optional: Change color on hover for better visibility */
 }
