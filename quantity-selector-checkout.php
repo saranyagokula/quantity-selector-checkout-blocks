@@ -6,10 +6,8 @@
  * Author: Your Name
  */
 
-// Register and enqueue the JavaScript file
+// Register and enqueue the JavaScript and CSS files
 function qsc_enqueue_scripts() {
-
-    // Enqueue the JavaScript file
     wp_enqueue_script(
         'qsc-js', // Handle for the JavaScript file
         plugins_url('quantity-selector-checkout.js', __FILE__), // URL to the script
@@ -18,7 +16,6 @@ function qsc_enqueue_scripts() {
         true // Load the script in the footer
     );
 
-    // Pass AJAX URL to JavaScript
     wp_localize_script(
         'qsc-js', // Handle for the script
         'qscParams', // Name of the JavaScript object to contain data
@@ -51,6 +48,16 @@ add_action('woocommerce_blocks_loaded', function() {
                     foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
                         if ($cart_item['product_id'] === $item_id) {
                             WC()->cart->set_quantity($cart_item_key, $quantity);
+                        }
+                    }
+
+                    // Recalculate cart totals
+                    WC()->cart->calculate_totals();
+                } elseif (isset($data['itemId']) && isset($data['action']) && $data['action'] === 'delete') {
+                    // Remove the item from the cart
+                    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+                        if ($cart_item['product_id'] === intval($data['itemId'])) {
+                            WC()->cart->remove_cart_item($cart_item_key);
                         }
                     }
 
